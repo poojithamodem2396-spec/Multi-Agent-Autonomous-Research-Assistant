@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: research
+    description: Multi-agent research operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,54 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /research:
+    post:
+      operationId: createResearch
+      tags: [research]
+      summary: Run a multi-agent research job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResearchInput"
+      responses:
+        "200":
+          description: Completed research report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResearchResult"
+        "400":
+          description: Invalid research question
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /research/{researchId}:
+    get:
+      operationId: getResearch
+      tags: [research]
+      summary: Get a completed research report
+      parameters:
+        - name: researchId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Research report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResearchResult"
+        "404":
+          description: Research job not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +83,93 @@ components:
           type: string
       required:
         - status
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+    ResearchInput:
+      type: object
+      properties:
+        question:
+          type: string
+          minLength: 8
+          maxLength: 2000
+      required:
+        - question
+    ResearchSource:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        snippet:
+          type: string
+        domain:
+          type: string
+      required:
+        - title
+        - url
+        - snippet
+        - domain
+    ResearchStep:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        detail:
+          type: string
+        status:
+          type: string
+          enum: [complete, active, pending]
+        durationMs:
+          type: integer
+      required:
+        - id
+        - label
+        - detail
+        - status
+        - durationMs
+    ResearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+        question:
+          type: string
+        createdAt:
+          type: string
+        reportMarkdown:
+          type: string
+        queries:
+          type: array
+          items:
+            type: string
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResearchSource"
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResearchStep"
+        confidence:
+          type: number
+        mode:
+          type: string
+      required:
+        - id
+        - question
+        - createdAt
+        - reportMarkdown
+        - queries
+        - sources
+        - steps
+        - confidence
+        - mode
 

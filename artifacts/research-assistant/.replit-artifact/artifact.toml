@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Research Assistant"
+description = "A dark multi-agent research workspace that turns complex questions into cited reports with visible planning, web search, synthesis, fact-checking, and export steps."
+version = "1.0.0"
+id = "artifacts/research-assistant"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/", "/research-api" ]
+localPort = 25965
+
+[services.development]
+run = "pnpm --filter @workspace/research-assistant run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/research-assistant", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/research-assistant/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25965"
+BASE_PATH = "/"

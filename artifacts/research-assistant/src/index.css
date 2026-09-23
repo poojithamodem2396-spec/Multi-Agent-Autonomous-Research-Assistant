@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --font-sans: var(--app-font-sans);
+  --font-serif: var(--app-font-serif);
+  --font-mono: var(--app-font-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 42 38% 94%;
+  --foreground: 218 28% 19%;
+  --border: 37 23% 83%;
+  --input: 37 23% 80%;
+  --ring: 14 61% 48%;
+  --card: 42 45% 97%;
+  --card-foreground: 218 28% 19%;
+  --card-border: 38 25% 85%;
+  --popover: 42 45% 97%;
+  --popover-foreground: 218 28% 19%;
+  --popover-border: 38 25% 85%;
+  --primary: 218 34% 25%;
+  --primary-foreground: 42 45% 97%;
+  --secondary: 37 31% 88%;
+  --secondary-foreground: 218 28% 19%;
+  --muted: 39 27% 89%;
+  --muted-foreground: 216 15% 46%;
+  --accent: 14 61% 48%;
+  --accent-foreground: 42 45% 97%;
+  --destructive: 2 61% 45%;
+  --destructive-foreground: 42 45% 97%;
+  --sidebar: 218 34% 25%;
+  --sidebar-foreground: 39 33% 91%;
+  --sidebar-border: 218 27% 34%;
+  --sidebar-primary: 37 79% 66%;
+  --sidebar-primary-foreground: 218 34% 25%;
+  --sidebar-accent: 218 28% 31%;
+  --sidebar-accent-foreground: 39 33% 91%;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-serif: 'Newsreader', Georgia, serif;
+  --app-font-mono: 'DM Mono', monospace;
+  --radius: 0.9rem;
+  --shadow-sm: 0 4px 14px hsl(218 30% 20% / 0.06);
+  --shadow-md: 0 12px 30px hsl(218 30% 20% / 0.09);
+  --shadow-lg: 0 22px 50px hsl(218 30% 20% / 0.12);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
+
+.dark {
+  --background: 218 31% 13%;
+  --foreground: 39 33% 91%;
+  --border: 218 22% 27%;
+  --input: 218 22% 31%;
+  --ring: 14 61% 58%;
+  --card: 218 28% 17%;
+  --card-foreground: 39 33% 91%;
+  --card-border: 218 22% 27%;
+  --popover: 218 28% 17%;
+  --popover-foreground: 39 33% 91%;
+  --popover-border: 218 22% 27%;
+  --primary: 39 33% 91%;
+  --primary-foreground: 218 34% 25%;
+  --secondary: 218 22% 25%;
+  --secondary-foreground: 39 33% 91%;
+  --muted: 218 22% 23%;
+  --muted-foreground: 216 15% 68%;
+  --accent: 14 61% 58%;
+  --accent-foreground: 218 34% 13%;
+  --destructive: 2 61% 57%;
+  --destructive-foreground: 218 34% 13%;
+  --sidebar: 218 34% 10%;
+  --sidebar-foreground: 39 33% 91%;
+  --sidebar-border: 218 22% 21%;
+  --sidebar-primary: 37 79% 66%;
+  --sidebar-primary-foreground: 218 34% 13%;
+  --sidebar-accent: 218 28% 18%;
+  --sidebar-accent-foreground: 39 33% 91%;
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { background: hsl(var(--background)); }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    min-width: 320px;
+  }
+  button, a, textarea { -webkit-tap-highlight-color: transparent; }
+  ::selection { background: hsl(var(--accent) / 0.22); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: .42; transform: scale(.92); }
+  50% { opacity: 1; transform: scale(1); }
+}
+@keyframes scan-line {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+.animate-rise-in { animation: rise-in .55s cubic-bezier(.22,.8,.26,1) both; }
+.animate-breathe { animation: breathe 1.8s ease-in-out infinite; }
+.scan-line { animation: scan-line 1.6s ease-in-out infinite; }
+.research-grid {
+  background-image: linear-gradient(hsl(var(--border) / .28) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border) / .28) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
+.editorial-rule {
+  height: 1px;
+  background: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--border)), transparent);
+}
+.report-copy p { margin: 0 0 1rem; color: hsl(var(--foreground) / .78); line-height: 1.78; }
+.report-copy h2 { color: hsl(var(--foreground)); font: 500 1.55rem/1.2 var(--app-font-serif); margin: 2rem 0 .8rem; }
+.report-copy h3 { color: hsl(var(--foreground)); font: 600 .78rem/1.2 var(--app-font-sans); letter-spacing: .12em; text-transform: uppercase; margin: 1.5rem 0 .7rem; }
+.report-copy ul { margin: 0 0 1rem; padding-left: 1.2rem; color: hsl(var(--foreground) / .78); }
+.report-copy li { padding: .2rem 0; line-height: 1.65; }
+.report-copy strong { color: hsl(var(--foreground)); font-weight: 600; }
